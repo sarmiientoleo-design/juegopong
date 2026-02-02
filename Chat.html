@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            width: 350px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 10px;
+            background: #4a90e2;
+            color: white;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 8px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+
+        .sent {
+            background: #dcf8c6;
+            align-self: flex-end;
+        }
+
+        .received {
+            background: #eee;
+            align-self: flex-start;
+        }
+
+        .chat-input {
+            display: flex;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+        }
+
+        .chat-input button {
+            padding: 10px 15px;
+            border: none;
+            background: #4a90e2;
+            color: white;
+            cursor: pointer;
+        }
+
+        .chat-input button:hover {
+            background: #357abd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-header">Chat</div>
+
+    <div class="chat-messages" id="messages"></div>
+
+    <div class="chat-input">
+        <input type="text" id="messageInput" placeholder="Escribe un mensaje...">
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
+</div>
+
+<script>
+    function sendMessage() {
+        const input = document.getElementById("messageInput");
+        const text = input.value.trim();
+
+        if (text === "") return;
+
+        const messages = document.getElementById("messages");
+
+        const message = document.createElement("div");
+        message.classList.add("message", "sent");
+        message.textContent = text;
+
+        messages.appendChild(message);
+        messages.scrollTop = messages.scrollHeight;
+
+        input.value = "";
+    }
+
+    // Enviar con Enter
+    document.getElementById("messageInput").addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            sendMessage();
+        }
+    });
+</script>
+
+</body>
+</html>
